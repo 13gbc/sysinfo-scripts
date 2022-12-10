@@ -11,7 +11,7 @@ $memory = Get-WmiObject -Class Win32_PhysicalMemory | Measure-Object -Property C
 $cores = Get-WmiObject -Class Win32_Processor | Measure-Object -Property NumberOfCores -Sum
 
 # Get the system uptime
-$uptime = (Get-Date) - $os.LastBootUpTime
+$uptime = (Get-Date) - (Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object -Property LastBootUpTime).LastBootUpTime
 
 # Get the list of disks and their properties
 $disks = Get-WmiObject -Class Win32_LogicalDisk | Select DeviceID, VolumeName, Size, FreeSpace
@@ -27,7 +27,7 @@ Write-Output "Hostname: $hostname"
 Write-Output "Operating System: $($os.Caption) $($os.Version)"
 Write-Output "Total Memory: $($memory.Sum / 1GB) GB"
 Write-Output "CPU Cores: $($cores.Sum)"
-Write-Output "Uptime: $uptime"
+Write-Output "Up time: $($uptime.Days) days $($uptime.Hours) hours $($uptime.Minutes) minutes"
 
 # Print the disk information
 Write-Output "Disks:"
