@@ -1,3 +1,6 @@
-# linuxsysinfo
+# SysInfo-Scripts
 
-Gather information quickly of key operating systems
+Quickly gather information on key operating systems.
+
+
+
